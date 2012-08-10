@@ -1,0 +1,13 @@
+#Fri Aug 10 17:03:45 GMT+08:00 2012
+eclipse.preferences.version=1
+encoding//analyse/analyzer.py=utf8
+encoding//analyse/html_analyse.py=utf8
+encoding//common/config.py=utf8
+encoding//common/define.py=utf8
+encoding//crawl/crawler.py=utf8
+encoding//libs/net.py=utf8
+encoding//libs/randomstr.py=utf8
+encoding//libs/sqlpool.py=utf8
+encoding//logic/data_logic.py=utf8
+encoding//model/record.py=utf8
+encoding/initializer.py=utf8
