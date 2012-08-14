@@ -6,7 +6,6 @@ Created on 2012-8-10
 '''
 from model import record
 from libs import net
-from libs.sqlpool import pool as _pool
 from libs import randomstr
 from logic import data_logic as _logic
 from common import define
