@@ -20,9 +20,10 @@ class Analyzer(threading.Thread):
         threading.Thread.__init__(self)
         self.index = index
         self.table = '%s_%s' % (record.DB_TABLE, index)
+        self.execute = True
         
     def run(self):
-        while True:
+        while self.execute:
             record_obj = _logic.get_record_with_status(self.table, record.STATUS_REQUEST)
             if record_obj == None:
                 time.sleep(60)
@@ -53,6 +54,7 @@ class Analyzer(threading.Thread):
                 record_obj = record.Record(define.UNDEFINE, record_url, record.STATUS_NOTYET, '', '')
                 _logic.insert_record(self.table, record_obj)
         
-    
+    def stop_task(self):
+        self.execute = False
     
     

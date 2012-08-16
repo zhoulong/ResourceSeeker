@@ -136,7 +136,7 @@ class SqlPool():
         sqlConn.close()
         return (int(insertResult), int(insertId))
 
-    def query(self, sqlCmd, how = 0):
+    def query(self, sqlCmd, how = 1):
         '''执行语句，返回查询结果'''
         sqlConn = self.getConn()
         retData = sqlConn.query(sqlCmd, how)

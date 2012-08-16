@@ -19,17 +19,20 @@ def _hash_func(url):
     m.update(url)
     md5_str = m.hexdigest()
     index_array = []
-    index_array[0] = int(md5_str[0 : 8], 16)
-    index_array[1] = int(md5_str[8 : 15], 16)
-    index_array[2] = int(md5_str[15 : 21], 16)
-    index_array[3] = int(md5_str[21 : 26], 16)
-    index_array[4] = int(md5_str[26 : 30], 16)
-    index_array[5] = int(md5_str[30:] + str[0], 16)
-    index_array[6] = int(md5_str[1 : 3], 16)
-    index_array[7] = int(md5_str[3], 16)
+    index_array.append(int(md5_str[0 : 8], 16))
+    index_array.append(int(md5_str[8 : 15], 16))
+    index_array.append(int(md5_str[15 : 21], 16))
+    index_array.append(int(md5_str[21 : 26], 16))
+    index_array.append(int(md5_str[26 : 30], 16))
+    index_array.append(int(md5_str[30:] + md5_str[0], 16))
+    index_array.append(int(md5_str[1 : 3], 16))
+    index_array.append(int(md5_str[3], 16))
+    if index_array[0] > 2 ** 31:
+        index_array[0] = int(md5_str[0 : 7], 16)
     return index_array
 
-def _init_bitarray():
+def init_bitarray():
+    global bitarr
     if bitarr == None:
         if os.path.exists(FILE_PATH):
             bit_file = open(FILE_PATH, 'rb')
@@ -37,21 +40,26 @@ def _init_bitarray():
             bit_file.close()
         else:
             bitarr = bitarray(2 ** 31)
+        print len(bitarr)
 
-def _save_bitarray():
+def save_bitarray():
+    global bitarr
     if bitarr != None:
         bit_file = open(FILE_PATH, 'wb')
         pickle.dump(bitarr, bit_file, pickle.HIGHEST_PROTOCOL)
         bit_file.close()
         
 def _switchon_bitarray(index_array):
+    global bitarr
     if bitarr == None:
         return
     for index in index_array:
         bitarr[index] = True
         
 def url_exist(url):
+    global bitarr
     index_array = _hash_func(url)
+    print index_array
     if bitarr != None:
         for index in index_array:
             if bitarr[index] == False:
@@ -61,4 +69,3 @@ def url_exist(url):
     else:
         return False
 
-_init_bitarray()

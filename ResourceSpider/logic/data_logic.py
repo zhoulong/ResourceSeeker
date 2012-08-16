@@ -45,7 +45,8 @@ def get_record_with_status(table, status):
     order_clause = '''ORDER BY RAND()'''
     limit_clause = '''LIMIT 1'''
     data = record.query(table, where_clause, order_clause, limit_clause)
+    print data
     if data == None or len(data) == 0:
         return None
-    return record.generate(data)
+    return record.generate(data[0])
     
